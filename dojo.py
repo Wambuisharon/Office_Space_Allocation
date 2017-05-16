@@ -29,7 +29,9 @@ class Dojo(object):
             random_room = random.choice(self.list_of_offices)
             # add member to the occupants of the selected room
             random_room.occupants.append(new_staff)
-            print("This staff %s has been added successfully" % new_staff.person_name)  
+            print("This staff %s has been added successfully" % new_staff.person_name)
+
+            return new_staff
 
         elif person_type == "Fellow":
             new_fellow = Fellow(person_name)
@@ -41,5 +43,7 @@ class Dojo(object):
             if accommodation == "yes":
                 random_room = random.choice(self.list_of_living_space)
                 random_room.occupants.append(new_fellow)
+
+            return new_fellow
 
 

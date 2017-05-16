@@ -56,16 +56,13 @@ class TestCreateRoom(unittest.TestCase):
 
 
     def test_office_allocation(self):
-        initial_office_length = len(self.dojo.list_of_offices[0].occupants)
-        self.dojo.add_person("John Doe", "Fellow")
-        new_office_length = len(self.dojo.list_of_offices[0].occupants)
-        self.assertGreater(new_office_length, initial_office_length)
+        test_fellow = self.dojo.add_person("John Doe", "Fellow")
+        self.assertIn(test_fellow, self.dojo.list_of_offices[0].occupants)
+        
 
     def test_living_space_allocation(self):
-        initial_living_space_length = len(self.dojo.list_of_living_space[0].occupants)
-        self.dojo.add_person("Felix","Fellow", "yes")
-        new_living_space_length = len(self.dojo.list_of_living_space[0].occupants)
-        self.assertGreater(new_living_space_length, initial_living_space_length)    
+        test_fellow = self.dojo.add_person("John Doe1", "Fellow", accommodation="yes")
+        self.assertIn(test_fellow, self.dojo.list_of_living_space[0].occupants)
 
 
 if __name__ == '__main__':
