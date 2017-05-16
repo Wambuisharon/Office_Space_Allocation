@@ -1,14 +1,15 @@
 import unittest
-from dojo import Dojo
 
+from dojo import Dojo
+from room import Office, Living_space
+from person import Fellow, Staff
 
 class TestCreateRoom(unittest.TestCase):
     def setUp(self):
         self.dojo = Dojo()
-        self.dojo.list_of_offices=[]
-        self.dojo.list_of_living_space = []
-        self.dojo.list_of_fellows = []
-
+        self.dojo.create_room("Spire", "Office")
+        self.dojo.create_room("Tent", "Living_space")
+        
 
     #Create office test
     def test_create_office_successfully(self):
@@ -53,6 +54,19 @@ class TestCreateRoom(unittest.TestCase):
         new_living_space_count = len(self.dojo.list_of_living_space)
         self.assertEquals(new_living_space_count, initial_living_space_count)
 
-    
+
+    def test_office_allocation(self):
+        initial_office_length = len(self.dojo.list_of_offices[0].occupants)
+        self.dojo.add_person("John Doe", "Fellow")
+        new_office_length = len(self.dojo.list_of_offices[0].occupants)
+        self.assertGreater(new_office_length, initial_office_length)
+
+    def test_living_space_allocation(self):
+        initial_living_space_length = len(self.dojo.list_of_living_space[0].occupants)
+        self.dojo.add_person("Felix","Fellow", "yes")
+        new_living_space_length = len(self.dojo.list_of_living_space[0].occupants)
+        self.assertGreater(new_living_space_length, initial_living_space_length)    
+
+
 if __name__ == '__main__':
 	unittest.main()
