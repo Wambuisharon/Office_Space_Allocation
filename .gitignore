@@ -87,3 +87,5 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+/Office_Space_AllocationOffice_Space_Allocation/*
