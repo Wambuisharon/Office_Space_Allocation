@@ -38,21 +38,41 @@ class Dojo(object):
             new_staff = Staff(person_name)
             self.list_of_staff.append(new_staff)
             # get a random room
-            random_room = random.choice(self.list_of_offices)
+            available_offices = [office for office in
+                                 self.list_of_offices if
+                                 len(office.occupants) < office.space]
+            if available_offices:
+                random_room = random.choice(available_offices)
             # add member to the occupants of the selected room
-            random_room.occupants.append(new_staff)
+                random_room.occupants.append(new_staff)
+            else:
+                return "No offices available, You'll be \
+                added to a waiting list"
 
             return new_staff
 
         elif person_type == "Fellow":
             new_fellow = Fellow(person_name)
             self.list_of_fellows.append(new_fellow)
-            random_room = random.choice(self.list_of_offices)
-            random_room.occupants.append(new_fellow)
+            available_offices = [office for office in self.list_of_offices
+                                 if len(office.occupants) < 6]
+            if available_offices:
+                random_room = random.choice(available_offices)
+                random_room.occupants.append(new_fellow)
+            else:
+                return "No offices available, You'll be\
+                 added to a waiting list"
             # Add a living room to a fellow
             if accommodation == "yes":
-                random_room = random.choice(self.list_of_living_space)
-                random_room.occupants.append(new_fellow)
+                available_living_spaces = [living_space for living_space in
+                                           self.list_of_living_space if
+                                           len(living_space.occupants) < 4]
+                if available_living_spaces:
+                    random_room = random.choice(available_living_spaces)
+                    random_room.occupants.append(new_fellow)
+                else:
+                    return "No living space available, You'll be\
+                     added to a waiting list"
 
             return new_fellow
 
