@@ -22,15 +22,18 @@ class Dojo(object):
                 new_office = Office(room_name)
                 self.list_of_offices.append(new_office)
                 print("The office %s has been created successfully" % new_office.room_name)
+                return new_office
 
             elif room_type == "Living_space":
                 new_living_space= Living_space(room_name)
                 self.list_of_living_space.append(new_living_space)
                 print("This living room %s has been created successfully" % new_living_space.room_name)
+                return new_living_space
 
         elif room_name in all_room_names:
             print("Sorry. Room %s already exists"%room_name)
             return "Sorry. Room %s already exists"%room_name
+
 
 
     def add_person(self,person_name,person_type, accommodation="No"):
