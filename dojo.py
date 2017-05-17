@@ -28,7 +28,6 @@ class Dojo(object):
             elif room_type == "Living_space":
                 new_living_space = Living_space(room_name)
                 self.list_of_living_space.append(new_living_space)
-
                 return new_living_space
 
         elif room_name in all_room_names:
@@ -48,8 +47,6 @@ class Dojo(object):
         elif person_type == "Fellow":
             new_fellow = Fellow(person_name)
             self.list_of_fellows.append(new_fellow)
-            print("This fellow %s has been added successfully"
-                  % new_fellow.person_name)
             random_room = random.choice(self.list_of_offices)
             random_room.occupants.append(new_fellow)
             # Add a living room to a fellow
