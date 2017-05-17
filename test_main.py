@@ -64,6 +64,13 @@ class TestCreateRoom(unittest.TestCase):
         test_fellow = self.dojo.add_person("John Doe1", "Fellow", accommodation="yes")
         self.assertIn(test_fellow, self.dojo.list_of_living_space[0].occupants)
 
+    def test_create_living_space_with_an_exist_office_name(self):
+        self.dojo.create_room("Tsavo", "Living_space")
+        new_tsavo = self.dojo.create_room("Tsavo", "Living_space")
+        self.assertEquals("Sorry. Room Tsavo already exists", new_tsavo)
+
+
+
 
 if __name__ == '__main__':
 	unittest.main()

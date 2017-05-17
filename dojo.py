@@ -11,15 +11,27 @@ class Dojo(object):
         self.list_of_occupants = []
 
     def create_room(self,room_name,room_type):
-        if room_type == "Office":
-            new_office = Office(room_name)
-            self.list_of_offices.append(new_office)
-            print("The office %s has been created successfully" % new_office.room_name)
+        all_rooms = self.list_of_living_space + self.list_of_offices
+        all_room_names = []
+        for room in all_rooms:
+            all_room_names.append(room.room_name)
 
-        elif room_type == "Living_space":
-            new_living_space= Living_space(room_name)
-            self.list_of_living_space.append(new_living_space)
-            print("This living room %s has been created successfully" % new_living_space.room_name)    
+        if room_name not in all_room_names:
+            # create the room
+            if room_type == "Office":
+                new_office = Office(room_name)
+                self.list_of_offices.append(new_office)
+                print("The office %s has been created successfully" % new_office.room_name)
+
+            elif room_type == "Living_space":
+                new_living_space= Living_space(room_name)
+                self.list_of_living_space.append(new_living_space)
+                print("This living room %s has been created successfully" % new_living_space.room_name)
+
+        elif room_name in all_room_names:
+            print("Sorry. Room %s already exists"%room_name)
+            return "Sorry. Room %s already exists"%room_name
+
 
     def add_person(self,person_name,person_type, accommodation="No"):
         if person_type == "Staff":
@@ -46,4 +58,6 @@ class Dojo(object):
 
             return new_fellow
 
-
+        else:
+            print("We ran into an error")
+            return "We ran into an error"
