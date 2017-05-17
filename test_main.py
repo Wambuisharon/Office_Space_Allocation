@@ -63,6 +63,14 @@ class TestCreateRoom(unittest.TestCase):
         new_tsavo = self.dojo.create_room("Tsavo", "Living_space")
         self.assertEquals("Sorry. Room Tsavo already exists", new_tsavo)
 
+    def test_Max_Number_Of_Occupants(self):
+        test_add_fellow = self.dojo.add_person("Washera", "Fellow", "yes")
+        test_add_fellow = self.dojo.add_person("Daisy", "Fellow", "yes")
+        test_add_fellow = self.dojo.add_person("Sharon", "Fellow", "yes")
+        test_add_fellow = self.dojo.add_person("Waithira", "Fellow", "yes")
+        test_add_fellow = self.dojo.add_person("Kimani", "Fellow", "yes")
+        self.assertIn(test_add_fellow, self.dojo.list_of_fellows)
 
-if __name__ == '__main__':
+
+if __name__ == '__main_':
     unittest.main()
