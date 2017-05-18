@@ -66,9 +66,14 @@ class dojo_cmd(cmd.Cmd):
         '''
         Usage: add_person <person_name> <person_type> [<accommodation>]
         '''
-        person_name = arg["<person_name>"]
-        person_type = arg["<person_type>"]
-        dojo.add_person(person_name, person_type)
+        if arg["<accommodation>"] and arg["<person_type>"] == "Fellow":
+            person_name = arg["<person_name>"]
+            person_type = arg["<person_type>"]
+            dojo.add_person(person_name, person_type, accommodation="yes")
+        else:
+            person_name = arg["<person_name>"]
+            person_type = arg["<person_type>"]
+            dojo.add_person(person_name, person_type)
 
     def do_quit(self, args):
         print("Bye!")
