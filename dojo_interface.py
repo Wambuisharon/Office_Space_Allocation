@@ -14,6 +14,7 @@ import sys
 import cmd
 from docopt import docopt, DocoptExit
 from dojo import Dojo
+
 dojo = Dojo()
 
 
@@ -66,7 +67,7 @@ class dojo_cmd(cmd.Cmd):
         '''
         Usage: add_person <person_name> <person_type> [<accommodation>]
         '''
-        if arg["<accommodation>"] and arg["<person_type>"] == "Fellow":
+        if arg["<accommodation>"] == "Y" and arg["<person_type>"] == "Fellow":
             person_name = arg["<person_name>"]
             person_type = arg["<person_type>"]
             dojo.add_person(person_name, person_type, accommodation="yes")
