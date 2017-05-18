@@ -23,11 +23,14 @@ class Dojo(object):
             if room_type == "Office":
                 new_office = Office(room_name)
                 self.list_of_offices.append(new_office)
+                print("Office %s has been created successfully" % room_name)
                 return new_office
 
             elif room_type == "Living_space":
                 new_living_space = Living_space(room_name)
                 self.list_of_living_space.append(new_living_space)
+                print("Livingspace %s has been created successfully"
+                      % room_name)
                 return new_living_space
 
         elif room_name in all_room_names:
@@ -38,6 +41,7 @@ class Dojo(object):
             new_staff = Staff(person_name)
             self.list_of_staff.append(new_staff)
             # get a random room
+            print("Staff %s has been added successfully" % person_name)
             available_offices = [office for office in
                                  self.list_of_offices if
                                  len(office.occupants) < office.space]
@@ -45,20 +49,25 @@ class Dojo(object):
                 random_room = random.choice(available_offices)
             # add member to the occupants of the selected room
                 random_room.occupants.append(new_staff)
+                print("Staff %s has been added into %s "
+                      % (new_staff.person_name, random_room.room_name))
             else:
-                return "No offices available, You'll be \
-                added to a waiting list"
+                print("No offices available, You'll be \
+                       added to a waiting list")
 
             return new_staff
 
         elif person_type == "Fellow":
             new_fellow = Fellow(person_name)
             self.list_of_fellows.append(new_fellow)
+            print("Fellow %s has been succefully added." % person_name)
             available_offices = [office for office in self.list_of_offices
                                  if len(office.occupants) < 6]
             if available_offices:
                 random_room = random.choice(available_offices)
                 random_room.occupants.append(new_fellow)
+                print ("Fellow %s has been allocated  office %s "
+                       % (new_fellow.person_name, random_room.room_name))
             else:
                 return "No offices available, You'll be\
                  added to a waiting list"
@@ -70,6 +79,8 @@ class Dojo(object):
                 if available_living_spaces:
                     random_room = random.choice(available_living_spaces)
                     random_room.occupants.append(new_fellow)
+                    print ("Fellow %s has been allocated %s"
+                           % (new_fellow.person_name, random_room.room_name))
                 else:
                     return "No living space available, You'll be\
                      added to a waiting list"
