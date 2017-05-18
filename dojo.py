@@ -34,59 +34,73 @@ class Dojo(object):
                 return new_living_space
 
         elif room_name in all_room_names:
-            return "Sorry. Room %s already exists" % room_name
+                print("Sorry. Room %s already exists" % room_name)
+                return "Sorry. Room %s already exists" % room_name
 
     def add_person(self, person_name, person_type, accommodation="No"):
-        if person_type == "Staff":
-            new_staff = Staff(person_name)
-            self.list_of_staff.append(new_staff)
-            # get a random room
-            print("Staff %s has been added successfully" % person_name)
-            available_offices = [office for office in
-                                 self.list_of_offices if
-                                 len(office.occupants) < office.space]
-            if available_offices:
-                random_room = random.choice(available_offices)
+        all_people = self.list_of_fellows + self.list_of_staff
+        all_people_names = []
+        for people in all_people:
+            all_people_names.append(people.person_name)
+
+        if person_name not in all_people_names:
+
+            if person_type == "Staff":
+                new_staff = Staff(person_name)
+                self.list_of_staff.append(new_staff)
+                # get a random room
+                print("Staff %s has been added successfully" % person_name)
+                available_offices = [office for office in
+                                     self.list_of_offices if
+                                     len(office.occupants) < office.space]
+                if available_offices:
+                    random_room = random.choice(available_offices)
             # add member to the occupants of the selected room
-                random_room.occupants.append(new_staff)
-                print("Staff %s has been added into %s "
-                      % (new_staff.person_name, random_room.room_name))
-            else:
-                print("No offices available, You'll be \
+                    random_room.occupants.append(new_staff)
+                    print("Staff %s has been added into %s "
+                          % (new_staff.person_name, random_room.room_name))
+                else:
+                    print("No offices available, You'll be \
                        added to a waiting list")
 
-            return new_staff
+                return new_staff
 
-        elif person_type == "Fellow":
-            new_fellow = Fellow(person_name)
-            self.list_of_fellows.append(new_fellow)
-            print("Fellow %s has been succefully added." % person_name)
-            available_offices = [office for office in self.list_of_offices
-                                 if len(office.occupants) < 6]
-            if available_offices:
-                random_room = random.choice(available_offices)
-                random_room.occupants.append(new_fellow)
-                print ("Fellow %s has been allocated  office %s "
-                       % (new_fellow.person_name, random_room.room_name))
-            else:
-                return "No offices available, You'll be\
-                 added to a waiting list"
-            # Add a living room to a fellow
-            if accommodation == "yes":
-                available_living_spaces = [living_space for living_space in
-                                           self.list_of_living_space if
-                                           len(living_space.occupants) < 4]
-                if available_living_spaces:
-                    random_room = random.choice(available_living_spaces)
+            elif person_type == "Fellow":
+                new_fellow = Fellow(person_name)
+                self.list_of_fellows.append(new_fellow)
+                print("Fellow %s has been succefully added." % person_name)
+                available_offices = [office for office in self.list_of_offices
+                                     if len(office.occupants) < 6]
+                if available_offices:
+                    random_room = random.choice(available_offices)
                     random_room.occupants.append(new_fellow)
-                    print ("Fellow %s has been allocated %s"
+                    print ("Fellow %s has been allocated  office %s "
                            % (new_fellow.person_name, random_room.room_name))
                 else:
-                    return "No living space available, You'll be\
+                    print ("No offices available, You'll be\
+                       added to a waiting list")
+                    return "No offices available, You'll be\
+                 added to a waiting list"
+            # Add a living room to a fellow
+                if accommodation == "yes":
+                    available_living_spaces = [living_space for living_space in
+                                               self.list_of_living_space if
+                                               len(living_space.occupants) < 4]
+                    if available_living_spaces:
+                        random_room = random.choice(available_living_spaces)
+                        random_room.occupants.append(new_fellow)
+                        print("Fellow %s has been allocated %s"
+                              % (new_fellow.person_name,
+                                 random_room.room_name))
+                    else:
+                        print("No living space available, You'll be\
+                     added to a waiting list")
+
+                        return "No living space available, You'll be\
                      added to a waiting list"
 
-            return new_fellow
+                return new_fellow
 
-        else:
-
-            return "We ran into an error"
+        elif person_name in all_people_names:
+                print("Sorry. Fellow %s already exists" % person_name)
+                return "Sorry. Fellow %s already exists" % person_name
