@@ -13,9 +13,10 @@ Options:
 import sys
 import cmd
 from docopt import docopt, DocoptExit
-from dojo import Dojo
+from pyfiglet import Figlet, figlet_format
+from termcolor import colored, cprint
 
-dojo = Dojo()
+from dojo import Dojo
 
 
 def docopt_cmd(func):
@@ -45,9 +46,20 @@ def docopt_cmd(func):
     return fn
 
 
+border = colored("*" * 20, 'cyan').center(80)
+
+
+def introduction():
+    print(border)
+    cprint(figlet_format('Dojo', font='basic'),
+           'blue', attrs=['bold'])
+    print(__doc__)
+    print(border)
+
+
 class dojo_cmd(cmd.Cmd):
 
-    intro = "Dojo"
+    dojo = Dojo()
     prompt = "the_dojo>> "
     file = None
     print(__doc__)
@@ -60,7 +72,7 @@ class dojo_cmd(cmd.Cmd):
         for name in arg["<room_name>"]:
             room_name = name
             room_type = arg["<room_type>"].upper()
-            dojo.create_room(room_name, room_type)
+            self.dojo.create_room(room_name, room_type)
 
     @docopt_cmd
     def do_add_person(self, args):
@@ -76,16 +88,23 @@ class dojo_cmd(cmd.Cmd):
 
         else:
             accomodation = 'NO'
-        dojo.add_person(person_name, person_type, accomodation)
+        self.dojo.add_person(person_name, person_type, accomodation)
 
     def do_quit(self, args):
         print("Bye!")
         exit()
 
 
-opt = docopt(__doc__, sys.argv[1:])
+# opt = docopt(__doc__, sys.argv[1:])
 
-if opt['--interactive']:
-    dojo_cmd().cmdloop()
+# if opt['--interactive']:
+#     dojo_cmd().cmdloop()
 
-print(opt)
+# print(opt)
+if __name__ == '__main__':
+    introduction()
+    try:
+        dojo_cmd().cmdloop()
+    except:
+        cprint('\t\t Exitting Dojo...', 'magenta')
+        exit()

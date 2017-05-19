@@ -1,4 +1,6 @@
 import random
+from termcolor import cprint
+
 from room import Office, Living_space
 from person import Fellow, Staff
 
@@ -23,20 +25,21 @@ class Dojo(object):
             if room_type == "OFFICE":
                 new_office = Office(room_name)
                 self.list_of_offices.append(new_office)
-                print("Office %s has been created successfully" % room_name)
+                cprint("Office %s has been created successfully" % room_name,
+                       "blue")
                 return new_office
 
             elif room_type == "LIVING_SPACE":
                 new_living_space = Living_space(room_name)
                 self.list_of_living_space.append(new_living_space)
-                print("Livingspace %s has been created successfully"
-                      % room_name)
+                cprint("Livingspace %s has been created successfully"
+                       % room_name, "blue")
                 return new_living_space
             else:
                 print("Invalid room type")
         else:
-                print("Sorry. Room %s already exists" % room_name)
-                return "Sorry. Room %s already exists" % room_name
+                print("Sorry. Room name %s already exists" % room_name)
+                return "Sorry. Room name %s already exists" % room_name
 
     def add_person(self, person_name, person_type, accommodation="NO"):
         all_people = self.list_of_fellows + self.list_of_staff
@@ -103,6 +106,8 @@ class Dojo(object):
                      added to a waiting list"
 
                 return new_fellow
+            else:
+                print("Person must be staff or fellow")
 
         elif person_name in all_people_names:
                 print("Sorry. Fellow %s already exists" % person_name)
