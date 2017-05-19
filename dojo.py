@@ -36,7 +36,7 @@ class Dojo(object):
                        % room_name, "blue")
                 return new_living_space
             else:
-                print("Invalid room type")
+                cprint("Invalid room type" "red")
         else:
                 print("Sorry. Room name %s already exists" % room_name)
                 return "Sorry. Room name %s already exists" % room_name

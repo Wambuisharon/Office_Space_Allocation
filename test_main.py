@@ -41,13 +41,13 @@ class TestCreateRoom(unittest.TestCase):
         test_office_with_similar_names = self.dojo.create_room("Spire",
                                                                "OFFICE")
         self.assertEquals(test_office_with_similar_names,
-                          "Sorry. Room Spire already exists")
+                          "Sorry. Room name Spire already exists")
 
     def test_living_room_with_similar_names(self):
         test_living_room_with_similar_names = \
             self.dojo.create_room("Tent", "LIVING_SPACE")
         self.assertEquals(test_living_room_with_similar_names,
-                          "Sorry. Room Tent already exists")
+                          "Sorry. Room name Tent already exists")
 
     def test_living_space_allocation(self):
         test_living_space_allocation = \
@@ -56,13 +56,13 @@ class TestCreateRoom(unittest.TestCase):
         for room in self.dojo.list_of_living_space:
             for person in room.occupants:
                 all_occupants.append(person)
-        self.assertIn(test_living_space_allocation,
-                      "Fellow John Doe1 has been allocated Tent")
+        self.assertIn("Fellow John Doe1 has been allocated Tent",
+                      test_living_space_allocation)
 
     def test_create_living_space_with_an_exist_office_name(self):
         self.dojo.create_room("Tsavo", "OFFICE")
         new_tsavo = self.dojo.create_room("Tsavo", "LIVING_SPACE")
-        self.assertEquals("Sorry. Room Tsavo already exists", new_tsavo)
+        self.assertEquals("Sorry. Room name Tsavo already exists", new_tsavo)
 
 
 if __name__ == '__main_':
