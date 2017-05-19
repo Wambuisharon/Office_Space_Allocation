@@ -36,9 +36,9 @@ class Dojo(object):
                        % room_name, "blue")
                 return new_living_space
             else:
-                cprint("Invalid room type" "red")
+                cprint("Invalid room type", "red")
         else:
-                print("Sorry. Room name %s already exists" % room_name)
+                cprint("Sorry. Room name %s already exists" % room_name, "red")
                 return "Sorry. Room name %s already exists" % room_name
 
     def add_person(self, person_name, person_type, accommodation="NO"):
@@ -61,28 +61,31 @@ class Dojo(object):
                     random_room = random.choice(available_offices)
             # add member to the occupants of the selected room
                     random_room.occupants.append(new_staff)
-                    print("Staff %s has been added into %s "
-                          % (new_staff.person_name, random_room.room_name))
+                    cprint("Staff %s has been added into %s"
+                           % (new_staff.person_name, random_room.room_name)
+                           , "red")
                 else:
-                    print("No offices available, You'll be \
-                       added to a waiting list")
+                    cprint("No offices available, You'll be \
+                       added to a waiting list", "red")
 
                 return new_staff
 
             elif person_type == "FELLOW":
                 new_fellow = Fellow(person_name)
                 self.list_of_fellows.append(new_fellow)
-                print("Fellow %s has been succefully added." % person_name)
+                cprint("Fellow %s has been succefully added." % person_name,
+                       "blue")
                 available_offices = [office for office in self.list_of_offices
                                      if len(office.occupants) < 6]
                 if available_offices:
                     random_room = random.choice(available_offices)
                     random_room.occupants.append(new_fellow)
-                    print ("Fellow %s has been allocated  office %s "
-                           % (new_fellow.person_name, random_room.room_name))
+                    cprint("Fellow %s has been allocated  office %s "
+                           % (new_fellow.person_name, random_room.room_name),
+                           "blue")
                 else:
-                    print ("No offices available, You'll be\
-                       added to a waiting list")
+                    cprint("No offices available, You'll be\
+                       added to a waiting list", "blue")
                     return "No offices available, You'll be\
                        added to a waiting list"
             # Add a living room to a fellow
@@ -93,22 +96,22 @@ class Dojo(object):
                     if available_living_spaces:
                         random_room = random.choice(available_living_spaces)
                         random_room.occupants.append(new_fellow)
-                        print("Fellow %s has been allocated %s"
-                              % (new_fellow.person_name,
-                                 random_room.room_name))
+                        cprint("Fellow %s has been allocated %s"
+                               % (new_fellow.person_name,
+                                  random_room.room_name), "blue")
                         return ("Fellow %s has been allocated %s"
                                 % (new_fellow.person_name,
-                                   random_room.room_name))
+                                   random_room.room_name), "blue")
                     else:
-                        print("No living space available, You'll be\
-                     added to a waiting list")
+                        cprint("No living space available, You'll be\
+                     added to a waiting list", "blue")
                         return "No living space available, You'll be\
                      added to a waiting list"
 
                 return new_fellow
             else:
-                print("Person must be staff or fellow")
+                cprint("Person must be staff or fellow", "red")
 
         elif person_name in all_people_names:
-                print("Sorry. Fellow %s already exists" % person_name)
+                cprint("Sorry. Fellow %s already exists" % person_name, "red")
                 return "Sorry. Fellow %s already exists" % person_name

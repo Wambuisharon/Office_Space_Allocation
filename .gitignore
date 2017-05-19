@@ -79,6 +79,8 @@ celerybeat-schedule
 .env
 
 # virtualenv
+Office_Space_Allocation/
+dojo/
 venv/
 ENV/
 
