@@ -20,24 +20,25 @@ class Dojo(object):
 
         if room_name not in all_room_names:
             # create the room
-            if room_type == "Office":
+            if room_type == "OFFICE":
                 new_office = Office(room_name)
                 self.list_of_offices.append(new_office)
                 print("Office %s has been created successfully" % room_name)
                 return new_office
 
-            elif room_type == "Living_space":
+            elif room_type == "LIVING_SPACE":
                 new_living_space = Living_space(room_name)
                 self.list_of_living_space.append(new_living_space)
                 print("Livingspace %s has been created successfully"
                       % room_name)
                 return new_living_space
-
-        elif room_name in all_room_names:
+            else:
+                print("Invalid room type")
+        else:
                 print("Sorry. Room %s already exists" % room_name)
                 return "Sorry. Room %s already exists" % room_name
 
-    def add_person(self, person_name, person_type, accommodation="No"):
+    def add_person(self, person_name, person_type, accommodation="NO"):
         all_people = self.list_of_fellows + self.list_of_staff
         all_people_names = []
         for people in all_people:
@@ -45,7 +46,7 @@ class Dojo(object):
 
         if person_name not in all_people_names:
 
-            if person_type == "Staff":
+            if person_type == "STAFF":
                 new_staff = Staff(person_name)
                 self.list_of_staff.append(new_staff)
                 # get a random room
@@ -65,7 +66,7 @@ class Dojo(object):
 
                 return new_staff
 
-            elif person_type == "Fellow":
+            elif person_type == "FELLOW":
                 new_fellow = Fellow(person_name)
                 self.list_of_fellows.append(new_fellow)
                 print("Fellow %s has been succefully added." % person_name)
@@ -80,9 +81,9 @@ class Dojo(object):
                     print ("No offices available, You'll be\
                        added to a waiting list")
                     return "No offices available, You'll be\
-                 added to a waiting list"
+                       added to a waiting list"
             # Add a living room to a fellow
-                if accommodation == "yes":
+                if accommodation == "YES":
                     available_living_spaces = [living_space for living_space in
                                                self.list_of_living_space if
                                                len(living_space.occupants) < 4]
@@ -92,10 +93,12 @@ class Dojo(object):
                         print("Fellow %s has been allocated %s"
                               % (new_fellow.person_name,
                                  random_room.room_name))
+                        return ("Fellow %s has been allocated %s"
+                                % (new_fellow.person_name,
+                                   random_room.room_name))
                     else:
                         print("No living space available, You'll be\
                      added to a waiting list")
-
                         return "No living space available, You'll be\
                      added to a waiting list"
 
