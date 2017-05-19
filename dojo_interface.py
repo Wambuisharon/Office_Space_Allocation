@@ -3,7 +3,7 @@
 
 Usage:
     the-dojo create_room <room_type> <room_name>...
-    the-dojo add_person <person_name> <person_type> <accommodation>
+    the-dojo add_person <first_name> <second_name> <person_type> [--a='No']
     the-dojo (-i | --interactive)
 
 Options:
@@ -59,22 +59,24 @@ class dojo_cmd(cmd.Cmd):
         '''
         for name in arg["<room_name>"]:
             room_name = name
-            room_type = arg["<room_type>"]
+            room_type = arg["<room_type>"].upper()
             dojo.create_room(room_name, room_type)
 
     @docopt_cmd
-    def do_add_person(self, arg):
+    def do_add_person(self, args):
         '''
-        Usage: add_person <person_name> <person_type> [<accommodation>]
+        Usage: add_person <first_name> <second_name> <person_type> [--a='No']
         '''
-        if arg["<accommodation>"] == "Y" and arg["<person_type>"] == "Fellow":
-            person_name = arg["<person_name>"]
-            person_type = arg["<person_type>"]
-            dojo.add_person(person_name, person_type, accommodation="yes")
+        first_name = args["<first_name>"]
+        second_name = args["<second_name>"]
+        person_name = first_name + ' ' + second_name
+        person_type = args["<person_type>"].upper()
+        if args['--a']:
+            accomodation = args['--a'].upper()
+
         else:
-            person_name = arg["<person_name>"]
-            person_type = arg["<person_type>"]
-            dojo.add_person(person_name, person_type)
+            accomodation = 'NO'
+        dojo.add_person(person_name, person_type, accomodation)
 
     def do_quit(self, args):
         print("Bye!")
