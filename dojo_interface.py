@@ -95,12 +95,6 @@ class dojo_cmd(cmd.Cmd):
         exit()
 
 
-# opt = docopt(__doc__, sys.argv[1:])
-
-# if opt['--interactive']:
-#     dojo_cmd().cmdloop()
-
-# print(opt)
 if __name__ == '__main__':
     introduction()
     try:
